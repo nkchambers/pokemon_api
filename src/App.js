@@ -1,23 +1,71 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react';
 
 function App() {
+
+
+  //---------------------STATE VARIABLES--------------------------
+
+  const [pokemon, setPokemon] = useState([])
+
+  const fetchPokemon = () => {
+
+    // Vanilla JS Fetch - Prior ES7 syntax - Long Way
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=807")
+      .then(res => {
+        return res.json()
+      })
+      .then(jsonRes => {
+        console.log(jsonRes);
+        setPokemon(jsonRes);
+      })
+      .catch(someErr => console.log(someErr))
+
+
+    //NEW ES7 syntax - Short Way
+    //let response = await fetch("http://www.example.com");
+
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Pokemon</h2>
+
+      <hr />
+
+      <button onClick={fetchPokemon}>Fetch Pokemon</button>
+
+      <hr />
+      {JSON.stringify(pokemon)}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pokemon Name</th>
+            <th>Pokemon URL</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {/*
+            pokemon.map((poke, idx) => {
+              return (
+                <tr>
+                  <td>name</td>
+                  <td>URL</td>
+                </tr>
+              )
+            })
+          */}
+
+            <tr>
+              <td>name</td>
+              <td>url</td>
+            </tr>  
+        </tbody>
+      </table>
     </div>
   );
 }
