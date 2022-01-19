@@ -16,8 +16,8 @@ function App() {
         return res.json()
       })
       .then(jsonRes => {
-        console.log(jsonRes);
-        setPokemon(jsonRes);
+        console.log(jsonRes.results);
+        setPokemon(jsonRes.results);
       })
       .catch(someErr => console.log(someErr))
 
@@ -38,7 +38,7 @@ function App() {
       <button onClick={fetchPokemon}>Fetch Pokemon</button>
 
       <hr />
-      {JSON.stringify(pokemon)}
+      {/*JSON.stringify(pokemon)*/}
 
       <table>
         <thead>
@@ -49,21 +49,16 @@ function App() {
         </thead>
 
         <tbody>
-          {/*
+          {
             pokemon.map((poke, idx) => {
               return (
-                <tr>
-                  <td>name</td>
-                  <td>URL</td>
+                <tr key={idx}>
+                  <td>{poke.name}</td>
+                  <td>{poke.url}</td>
                 </tr>
               )
             })
-          */}
-
-            <tr>
-              <td>name</td>
-              <td>url</td>
-            </tr>  
+          }  
         </tbody>
       </table>
     </div>
